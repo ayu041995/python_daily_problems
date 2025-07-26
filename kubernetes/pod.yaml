@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp-colour
+  label:
+    name: simple-webapp-colour
+data:
+  containers:
+    - name: simple-webapp-colour
+      image: simple-webapp-colour
+      ports:
+        - containerPort: 8080 
+      envFrom:
+        - configMapRef:
+              name: app-config
+
+
