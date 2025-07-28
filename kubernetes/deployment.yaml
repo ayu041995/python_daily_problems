@@ -1,0 +1,16 @@
+apiVersion: app/v1
+kind: Deployment
+metadata:
+  name: deployment-2048
+  namespace: kubernetes/namespace.yaml
+spec:
+  selector:
+    matchlabels:
+      app.kubernetes.io/name: app-2048
+  spec:
+    containers:
+      - image: private.aws/docker-2048:latest
+        imagepullPolicy: Always
+        name: app-2048
+        ports:
+          - containers: 80

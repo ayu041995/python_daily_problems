@@ -1,0 +1,21 @@
+#-----------STAGE-1 BUILD THE APP----------------#
+
+FROM node:18 AS builder
+WORKDIR /app
+COPY packages*.json ./     
+RUN npm install
+COPY ..
+RUN npm run build
+
+#-----------STAGE-2 BUILD THE APP----------------#
+
+FROM node:18-slim AS production
+WORKDIR /app
+
+# Copy only necessary files from build stage
+
+COPY --from = builder /app/build ./build
+COPY --from = builder /app/node_modules ./node_modules
+COPY --from = builder /app/packages*.json ./
+ENTRYPOINT ["node","server.js"]
+CMD ["--port","3000"]
