@@ -1,0 +1,64 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = "us-east-1"
+        ECR_REPO = "123456789012.dkr.ecr.${AWS_REGION}.amazonaws.com/my-app"
+        IMAGE_TAG = "${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+        KUBECONFIG = credentials('kubeconfig-eks') // Jenkins secret file for EKS kubeconfig
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo "Branch: ${env.BRANCH_NAME}"
+                checkout scm
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                script {
+                    sh """
+                        $(aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO)
+                        docker build -t $ECR_REPO:$IMAGE_TAG .
+                    """
+                }
+            }
+        }
+
+        stage('Push to ECR') {
+            steps {
+                script {
+                    sh """
+                        docker push $ECR_REPO:$IMAGE_TAG
+                    """
+                }
+            }
+        }
+
+        stage('Deploy to EKS') {
+            when {
+                branch 'main'
+            }
+            steps {
+                script {
+                    sh """
+                        export KUBECONFIG=$KUBECONFIG
+                        kubectl set image deployment/my-app-deployment my-container=$ECR_REPO:$IMAGE_TAG -n my-namespace
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline succeeded on branch: ${env.BRANCH_NAME}"
+        }
+        failure {
+            echo "Pipeline failed. Check logs above."
+        }
+    }
+}

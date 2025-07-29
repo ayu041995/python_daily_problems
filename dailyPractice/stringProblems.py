@@ -37,7 +37,6 @@ def firstOccurance(string,subString):
         if len(strMatch) == len(subString):
             strMatch = ''
             a = abs(a - len(subString))
-            # b = len(subString) - 1
             continue
         a += 1
         # b += 1
