@@ -1,8 +1,5 @@
 # Simple example of terraform file creation
-provider "aws"{
-    region = "us-east-1"
-    profile = "GSC-prod-1"
-}
+
 
 resource "aws_instance" "webserver" {
     ami = "ami_0rfnsbdfvtg87fc7"
@@ -22,6 +19,8 @@ resource "aws_iam_user" "admin_user"{
         Description = "Team lead"
     }
 }
+
+
 
 resource "local_file" "pet" {
   sensitive_content = ""
@@ -131,6 +130,34 @@ resource "aws_instance" "existing"{
 }
 
 # terraform import aws_instance.existing i-0123456789abcdef0
+
+
+
+# Conditional operator
+
+variable "production_subnet_cidr" {
+    description = "CIDR Block for production subnet"
+    type = string
+    default = "10.0.1.0/24"
+}
+
+variable "development_subnet_cidr" {
+    description = "CIDR Block for development subnet"
+    type = string
+    default = "10.0.2.0/24"
+}
+
+resource "aws_security_group" "my_sg"{
+    name = "my_sg"
+    description = "My Security Group"
+
+    ingress{
+        from_port = 22
+        to_port = 22
+        profile = "tcp"
+        cidr_blocks = var.environment == "production" ? [var.production_subnet_cidr] : [var.development_subnet_cidr]
+    }
+}
 
 
 
