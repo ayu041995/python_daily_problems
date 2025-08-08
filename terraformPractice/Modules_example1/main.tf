@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "s3_bucket"{
     bucket_name = "ayushi-s3-backend-xyz"
 }
 
-resource "aws_dynamodb_table"{
+resource "aws_dynamodb_table" "terraform_locks"{
     name = "terraform_lock"
     billing = "PAY_PER_REQUEST"
     hash_key = "LockID"
