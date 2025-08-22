@@ -14,12 +14,26 @@ list1 = [1,5,6,7,7,8,8,8,8,9,10,11,100,101,101]
 # print(removeDup())
 
 
+# def removeDup():
+#     uniq_list = []
+#     for i in list1:
+#         if i not in uniq_list:
+#             uniq_list.append(i)
+#     return uniq_list
+# print(removeDup())
+
 def removeDup():
-    uniq_list = []
-    for i in list1:
-        if i not in uniq_list:
-            uniq_list.append(i)
-    return uniq_list
+    left = 0
+    right = left + 1
+    while right < len(list1):
+        if list1[left] == list1[right]:
+            list1.pop(left)
+            left -= 1
+            right-= 1
+        left += 1
+        right += 1
+    return list1
+
 print(removeDup())
 
 
