@@ -13,22 +13,50 @@
 
 # The longest valid subarray is [1,2] with lenght 2
 
-def maxLength(a,k):
+# def maxLength(a,k):
+#     left = 0
+#     current_sum = 0
+#     max_len = 0
+#     for right in range(len(a)):
+#         current_sum += a[right]
+#         print("Outside*****",current_sum)
+#         while current_sum > k and left <= right:
+#             current_sum -= a[left]
+#             print("Inside*****",current_sum)
+#             left += 1
+#         lenght = right-left+1
+#         print("Lenght********",lenght)
+#         max_len = max (max_len, lenght)
+#     return max_len
+
+    
+     
+
+# print(maxLength([1,2,3],3))
+
+def maxLengthEqual(a,k):
     left = 0
     current_sum = 0
     max_len = 0
     for right in range(len(a)):
         current_sum += a[right]
-        print("Outside*****",current_sum)
+        if current_sum == k:
+            max_len = max(max_len, right-left+1)
         while current_sum > k and left <= right:
             current_sum -= a[left]
-            print("Inside*****",current_sum)
+            if current_sum == k:
+                max_len = max(max_len, (right-left+1))
             left += 1
-        lenght = right-left+1
-        print("Lenght********",lenght)
-        max_len = max (max_len, lenght)
+    return max_len
+
 
     
-     
 
-print(maxLength([1,2,3],3))
+print(maxLengthEqual([1,1,0,2,3,1,0,2,1,1,0],5))
+print(maxLengthEqual([0,2,0,-2,3,1,1,1,],5))
+
+
+    
+
+
+
