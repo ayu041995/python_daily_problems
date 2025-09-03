@@ -52,10 +52,7 @@ def maxLengthEqual(a,k):
 
     
 
-print(maxLengthEqual([1,1,0,2,3,1,0,2,1,1,0],5))
-print(maxLengthEqual([0,2,0,-2,3,1,1,1,],5))
-
-
+print(maxLengthEqual([1,1,0,2,3,1,2,1,1,0],5))
     
 
 
