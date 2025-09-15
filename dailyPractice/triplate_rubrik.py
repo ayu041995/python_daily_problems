@@ -19,6 +19,18 @@
 # Output: [[0,0,0]]
 # Explanation: The only possible triplet sums up to 0.
 
+
+# Brute force method
+# def triplate(nums):
+#     # i = 0
+#     # j = i + 1
+#     # k = i + 2
+#     for i in range(len(nums)):
+#         for j in range(i+1, len(nums)-1):
+#             for k in range(i+2,(len(nums))-2):
+#                 if nums[i] + nums[j] + nums[k] == 0:
+#                      print(nums[i],nums[j],nums[k])
+
 def triplate(nums):
     # i = 0
     # j = i + 1
@@ -29,8 +41,7 @@ def triplate(nums):
                 if nums[i] + nums[j] + nums[k] == 0:
                      print(nums[i],nums[j],nums[k])
 
-        
-        
+
 
 
 print(triplate([-1,0,1,2,-1,-4]))

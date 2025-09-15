@@ -1,0 +1,15 @@
+
+
+apiVersion: app/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  containers:
+  - image : $repopath/nginx:latesy
+    name: frontend
+    imagePullPolicy: IfNotPresent
+    ports:
+      targetPort: 80
+      ports: 3008
+      nodeport: 80

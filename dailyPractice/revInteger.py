@@ -20,18 +20,24 @@
 
 
 
-def revInt(int1):
+# def revInt(int1):
 
-    if int1 > 0:
-        str1 = str(int1)
-        str3 = ''.join(reversed(str1))
-        str2 = int(str3)
-    else:
-        str1 = (int1 * -1)
-        str1 = str(str1)
-        str3 = ''.join(reversed(str1))
-        str4 = int(str3)
-        str2 = str4 * -1
-    return str2
+#     if int1 > 0:
+#         str1 = str(int1)
+#         str3 = ''.join(reversed(str1))
+#         str2 = int(str3)
+#     else:
+#         str1 = (int1 * -1)
+#         str1 = str(str1)
+#         str3 = ''.join(reversed(str1))
+#         str4 = int(str3)
+#         str2 = str4 * -1
+#     return str2
+
+# print(revInt(120))
+
+
+def revInt(int1):
+    
 
 print(revInt(120))
